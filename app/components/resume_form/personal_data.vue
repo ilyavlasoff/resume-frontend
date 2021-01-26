@@ -259,7 +259,6 @@ export default {
             formData.append('userpic', this.file);
             console.log('Try to send');
             ResumeApiInstance.uploadFile(formData, (response) => {
-                console.log(response);
                 const data = JSON.parse(response.data);
                 if (data.status === 'success') {
                     this.photo = `${config.uploadedFileBasePath}${data.path}`;

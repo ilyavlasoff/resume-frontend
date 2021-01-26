@@ -4,23 +4,36 @@
             <img :src="photo" style="width: 75px; height: 75px;" class="rounded-circle">
             <h1>{{ `${resume.lastName} ${resume.firstName} ${resume.patronymic}`}}</h1>
             <p class="lead">Личная информация</p>
-            
+            <p>ФИО:{{`${resume.lastName} ${resume.firstName} ${resume.patronymic}`}}</p>
+            <p>Пол: {{resume.gender}}</p>
+            <p>Дата рождения: {{`${('0'+resume.birthday.getDay()).slice(-2)}.${('0'+(resume.birthday.getMonth() + 1)).slice(-2)} ${resume.birthday.getFullYear()}`}}</p>
+            <p>Место проживания: {{`${resume.country}, ${resume.city}`}}</p>
             <hr class="my-4">
             <p class="lead">Образование</p>
-            
-            
+            <p>Уровень образования: {{resume.educationLevel}}</p>
+            <p v-for="education in education" :key="education.institution + education.faculty">
+                {{`${education.institution}, ${education.faculty}, ${education.speciality} ${education.graduated}`}}
+            </p>
             <hr class="my-4">
             <p class="lead">Специализация</p>
-
+            <p>Сфера проф. деятельности: {{resume.sphere}}</p>
+            <p>Желаемая должность: {{resume.desiredPost}}</p>
+            <p>Заработная плата: {{resume.salaryMin}}-{{resume.salaryMax}}</p>
+            <p>Профессиональные навыки: {{resume.skills}}</p>
             <hr class="my-4">
             <p class="lead">Контактная информация</p>
-
+            <p>Телефон: {{resume.phoneNumber}}</p>
+            <p>Email: {{resume.email}}</p>
             <hr class="my-4">
             <p class="lead">Опыт работы</p>
-
+            <p>Опыт работы: {{resume.experienceLevel}}</p>
+            <p v-for="workplace in workplaces" :key="workplace.organizationName + workplace.postName">
+                {{`Компания ${workplace.organizationName}, ${workplace.postName}, период ${workplace.startDate}-${workplace.endDate}`}}
+            </p>
             <hr class="my-4">
             <p class="lead">Личные качества</p>
-
+            <p>Личные качества: {{resume.personalQualities}}</p>
+            <p>О себе: {{resume.aboutMyself}}</p>
             
         </div>
     </div>
@@ -39,9 +52,3 @@ export default {
     }
 }
 </script>
-<style scoped>
-    img {
-        height: 100px;
-        width: 100px;
-    }
-</style>

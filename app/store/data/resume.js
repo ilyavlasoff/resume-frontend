@@ -12,7 +12,7 @@ export class Resume
         this.experienceLevel = data.experienceLevel ? data.experienceLevel : '';
         this.workplaces = [];
         this.educationLevel = data.educationLevel ? data.educationLevel : '';
-        this.educations = [],
+        this.educations = [];
         this.phoneNumber = data.phoneNumber ? data.phoneNumber : '';
         this.email = data.email ? data.email : '';
         this.sphere = data.sphere ? data.sphere : '';

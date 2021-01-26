@@ -22,6 +22,7 @@
 </template>
 <script>
     import draggable from 'vuedraggable';
+    import { ResumeApiInstance } from '../api/resume_api';
 
     export default {
         name: 'HomepageColumn',
@@ -37,7 +38,22 @@
         watch: {
             fullList: function() {
                 this.currentList = this.$store.getters.RESUME_CARD_FILTER(this.columnFilter);
-                console.log(this.currentList);
+            },
+            currentList: function() {
+                this.currentList.filter(el => el.status !== this.columnFilter).forEach(el => {
+                    ResumeApiInstance.updateStatus(el.id, {
+                        status: this.columnFilter
+                    }, (response) => {
+                        const data = JSON.parse(response.data);
+                        if (data.status === 'success') {
+                            console.log('Status changed');
+                        } else {
+                            console.log('Error');
+                        }
+                    }, (error) => {
+                         console.log(error);
+                    })
+                });
             }
         },
         computed: {
