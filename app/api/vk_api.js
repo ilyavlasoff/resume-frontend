@@ -29,7 +29,6 @@ class VkApi
             .map(el => `${el}=${encodeURIComponent(params[el])}`)
             .join('&');
         const url = `${config.vkApiBasePath}${path}/?${queryString}`;
-        console.log('OK!');
         jsonp(url, data).then(successCallback).catch(errorCallback);
     }
 }

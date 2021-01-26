@@ -9,15 +9,10 @@
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Главная
-                    <span class="sr-only">(current)</span>
-                    </a>
+                    <a class="nav-link" @click="navigateTo('home')">Главная </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Добавить</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Редактировать</a>
+                    <a class="nav-link" @click="navigateTo('resume')">Добавить</a>
                 </li>
             </ul>
         </div>
@@ -29,7 +24,12 @@
 </template>
 <script>
     export default {
-        name: 'App'
+        name: 'App',
+        methods: {
+            navigateTo: function(path) {
+                this.$router.push({name: path});
+            }
+        }
     }
 </script>
 <style>

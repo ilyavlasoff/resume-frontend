@@ -6,12 +6,12 @@
             <p class="lead">Личная информация</p>
             <p>ФИО:{{`${resume.lastName} ${resume.firstName} ${resume.patronymic}`}}</p>
             <p>Пол: {{resume.gender}}</p>
-            <p>Дата рождения: {{`${('0'+resume.birthday.getDay()).slice(-2)}.${('0'+(resume.birthday.getMonth() + 1)).slice(-2)} ${resume.birthday.getFullYear()}`}}</p>
+            <p>Дата рождения: {{resume.birthday ? `${('0'+resume.birthday.getDay()).slice(-2)}.${('0'+(resume.birthday.getMonth() + 1)).slice(-2)} ${resume.birthday.getFullYear()}` : 'Не указано'}}</p>
             <p>Место проживания: {{`${resume.country}, ${resume.city}`}}</p>
             <hr class="my-4">
             <p class="lead">Образование</p>
             <p>Уровень образования: {{resume.educationLevel}}</p>
-            <p v-for="education in education" :key="education.institution + education.faculty">
+            <p v-for="education in resume.educations" :key="education.institution + education.faculty">
                 {{`${education.institution}, ${education.faculty}, ${education.speciality} ${education.graduated}`}}
             </p>
             <hr class="my-4">
@@ -27,7 +27,7 @@
             <hr class="my-4">
             <p class="lead">Опыт работы</p>
             <p>Опыт работы: {{resume.experienceLevel}}</p>
-            <p v-for="workplace in workplaces" :key="workplace.organizationName + workplace.postName">
+            <p v-for="workplace in resume.workplaces" :key="workplace.organizationName + workplace.postName">
                 {{`Компания ${workplace.organizationName}, ${workplace.postName}, период ${workplace.startDate}-${workplace.endDate}`}}
             </p>
             <hr class="my-4">

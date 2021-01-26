@@ -94,6 +94,7 @@
 import _ from 'lodash';
 import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 import { ResumeApiInstance } from '../../api/resume_api';
+import { VkApiInstance } from '../../api/vk_api';
 import { config } from '../../config';
 
 export default {
@@ -151,7 +152,7 @@ export default {
             set: function(value) {
                 this.$store.commit({
                     type: 'SET_BIRTHDAY',
-                    value
+                    value: new Date(value)
                 })
             }
         },
@@ -212,52 +213,38 @@ export default {
         this.debouncedCity = _.debounce(this.getCityName, 500);
     },
     watch: {
-        cityNameData: function() {
+        city: function() {
             this.debouncedCity();
         },
-        countryNameData: function() {
+        country: function() {
             //this.debouncedCountry();
         }
     },
     methods: {
         getCityName: function() {
-            this.$jsonp('https://api.vk.com/method/database.getCities', {
+            VkApiInstance.getCityList({
                 'country_id': 1,
-                'q': this.cityNameData,
+                'q': this.city,
                 'count': 5,
-                'access_token': '7119a7d97119a7d97119a7d988716fa52e771197119a7d9111ec6e3896e7f0e64470757',
-                'v': '5.52',
-                'lang': 'ru'
-            }).then(json => {
+            }, (json) => {
+                console.log(json);
                 this.cityOptionsList = json.response.items.map(function(item){
                     return {
                         id: item.id,
                         fullName: `${item.title}, ${item.area ? item.area + ', ': ''}${item.region ? item.region: ''}`
                     }
                 })
-                console.log(json);
-            }).catch(error => {
+            }, () => {
                 console.log('Error' + error);
-            })
+            });
         }, 
         getCountryName: function() {
-            this.$jsonp('https://api.vk.com/method/database.getCountries', {
-                'need_all': 1,
-                'count': 5,
-                'access_token': '7119a7d97119a7d97119a7d988716fa52e771197119a7d9111ec6e3896e7f0e64470757',
-                'v': '5.52',
-                'lang': 'ru'
-            }).then(json => {
-                console.log(json);
-            }).catch(error => {
-                console.log('Error' + error);
-            })
+            /* Реализовать в API сервиса */
         },
         uploadFile: function(params) {
             this.file = this.$refs.file.files[0];
             let formData = new FormData();
             formData.append('userpic', this.file);
-            console.log('Try to send');
             ResumeApiInstance.uploadFile(formData, (response) => {
                 const data = JSON.parse(response.data);
                 if (data.status === 'success') {
