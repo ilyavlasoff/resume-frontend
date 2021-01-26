@@ -79,7 +79,7 @@
             </div>
             <div class="form-group custom-file" v-if="!directLinkFormForPhoto">
                 <label for="userPhoto" class="custom-file-label">Ваше фото</label>
-                <input type="file" class="form-control custom-file-input" id="userPhoto">
+                <input type="file" ref="file" class="form-control custom-file-input" id="userPhoto" @change="uploadFile()">
                 <small id="patronymicTip" class="form-text text-muted">Вы также можете добавить фото по <a style="text-decoration: underline;" @click="directLinkFormForPhoto = true;">прямой ссылке</a></small>
             </div>
             <div class="form-group" v-if="directLinkFormForPhoto">
@@ -93,6 +93,8 @@
 <script>
 import _ from 'lodash';
 import { required, minLength, maxLength } from 'vuelidate/lib/validators';
+import { ResumeApiInstance } from '../../api/resume_api';
+import { config } from '../../config';
 
 export default {
     name: 'PersonalData', 
@@ -100,7 +102,8 @@ export default {
         return {
             directLinkFormForPhoto: false,
             cityOptionsList: [],
-            countryOptionsList: []
+            countryOptionsList: [],
+            photoFile: null
         }
     }, 
     computed: {
@@ -248,6 +251,23 @@ export default {
                 console.log(json);
             }).catch(error => {
                 console.log('Error' + error);
+            })
+        },
+        uploadFile: function(params) {
+            this.file = this.$refs.file.files[0];
+            let formData = new FormData();
+            formData.append('userpic', this.file);
+            console.log('Try to send');
+            ResumeApiInstance.uploadFile(formData, (response) => {
+                console.log(response);
+                const data = JSON.parse(response.data);
+                if (data.status === 'success') {
+                    this.photo = `${config.uploadedFileBasePath}${data.path}`;
+                } else {
+                    console.log('Error');
+                }
+            }, (error) => {
+                console.log(error);
             })
         }
     },

@@ -8,7 +8,7 @@
                 <a v-for="item in currentList" :key="item.id" class="list-group-item list-group-item-action flex-column align-items-start" 
                     @click="openEditPage(item.id)">
                     <div class="d-flex w-100 justify-content-between">
-                        <img :src="item.image" style="width: 75px; height: 75px;" class="rounded-circle">
+                        <img :src="item.photo" style="width: 75px; height: 75px;" class="rounded-circle">
                         <div class="col">
                             <h5>{{`${item.firstName} ${item.lastName} ${item.patronymic}`}}</h5>
                             <p>Возраст: {{parseInt((Date.now() - new Date(item.birthday)) / (1000*60*60*24*365))}}</p>
@@ -31,7 +31,7 @@
         },
         data: function() {
             return {
-                currentList: null
+                currentList: []
             }
         },
         watch: {

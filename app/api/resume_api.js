@@ -33,15 +33,24 @@ class ResumeApi
             successCallback, 
             errorCallback
         })
+        this.uploadFile = async(file, successCallback, errorCallback) => this.consume('load', {
+            method: 'post',
+            data: file,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }, 
+            successCallback, 
+            errorCallback
+        })
     }
 
-    async consume(path, {method, params = {}, data = {}, successCallback, errorCallback}) {
+    async consume(path, {method, params = {}, data = {}, headers = {}, successCallback, errorCallback}) {
         const queryString = Object.keys(params)
             .map(el => `${el}=${encodeURIComponent(params[el])}`)
             .join('&');
         const url = `${config.serviceApiBasePath}${path}?${queryString}`;
         console.log(url);
-        await axios.request(url, {method, data})
+        await axios.request(url, {method, data, headers})
             .then(successCallback)
             .catch(errorCallback);
     }
