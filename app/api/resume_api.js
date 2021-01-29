@@ -41,6 +41,12 @@ class ResumeApi
             }, 
             successCallback, 
             errorCallback
+        }),
+        this.countriesList = async(params, successCallback, errorCallback) => this.consume('vk/countries-list', {
+            method: 'get',
+            params, 
+            successCallback, 
+            errorCallback
         })
     }
 
@@ -49,7 +55,6 @@ class ResumeApi
             .map(el => `${el}=${encodeURIComponent(params[el])}`)
             .join('&');
         const url = `${config.serviceApiBasePath}${path}?${queryString}`;
-        console.log(url);
         await axios.request(url, {method, data, headers})
             .then(successCallback)
             .catch(errorCallback);

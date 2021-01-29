@@ -30,30 +30,14 @@
                 <input type="text" class="form-control" id="patronymicInput" v-model="patronymic" placeholder="Иванович">
                 <small id="patronymicTip" class="form-text text-muted">В случае отсутствия отчества оставьте поле пустым.</small>
             </div>
-            <div>
+            <div class="gender-form">
                 <label>Пол</label>
                 <div class="row">
-                    <div class="col">
+                    <div class="col" v-for="(genderOption, genderKey) in genderList" :key="genderKey">
                         <div class="form-check">
-                        <input class="form-check-input" type="radio" name="genderInput" id="maleGender" value="male" v-model="gender">
-                        <label class="form-check-label" for="maleGender">
-                            Мужской
-                        </label>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                        <input class="form-check-input" type="radio" name="genderInput" id="femaleGender" value="female" v-model="gender">
-                        <label class="form-check-label" for="femaleGender">
-                            Женский
-                        </label>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                        <input class="form-check-input" type="radio" name="genderInput" id="notStatedGender" value="notStated" v-model="gender">
-                        <label class="form-check-label" for="notStatedGender">
-                            Не указано
+                        <input class="form-check-input" type="radio" name="genderInput" :id="genderKey" :value="genderKey" v-model="gender">
+                        <label class="form-check-label" :for="genderKey">
+                            {{ genderOption }}
                         </label>
                         </div>
                     </div>
@@ -67,7 +51,9 @@
                 <label for="livingCityInput">Гражданство</label>
                 <input type="text" class="form-control" list="countryListOptions" id="citizenCountry" placeholder="Россия" v-model="country">
                 <datalist id="countryListOptions">
-                    <option v-for="countryOption in countryOptionsList" :key="countryOption"></option>
+                    <option v-for="countryOption in countryOptionsList" :key="countryOption.id">
+                        {{countryOption.title}}
+                    </option>
                 </datalist>
             </div>
             <div class="form-group">
@@ -108,6 +94,9 @@ export default {
         }
     }, 
     computed: {
+        genderList: function() {
+            return this.$store.getters.GENDER_LIST;
+        },
         lastName: {
             get: function() {
                 return this.$store.getters.RESUME.lastName;
@@ -217,21 +206,24 @@ export default {
             this.debouncedCity();
         },
         country: function() {
-            //this.debouncedCountry();
+            this.debouncedCountry();
         }
     },
     methods: {
         getCityName: function() {
+            let selectedCountry = this.countryOptionsList.find((el) => el.title === this.country);
+            if (! selectedCountry) {
+                return;
+            }
             VkApiInstance.getCityList({
-                'country_id': 1,
+                'country_id': selectedCountry.id,
                 'q': this.city,
                 'count': 5,
             }, (json) => {
-                console.log(json);
                 this.cityOptionsList = json.response.items.map(function(item){
                     return {
                         id: item.id,
-                        fullName: `${item.title}, ${item.area ? item.area + ', ': ''}${item.region ? item.region: ''}`
+                        fullName: `${item.title}${item.area ? ', ' + item.area: ''}${item.region ? ', ' + item.region: ''}`
                     }
                 })
             }, () => {
@@ -239,9 +231,21 @@ export default {
             });
         }, 
         getCountryName: function() {
-            /* Реализовать в API сервиса */
+            ResumeApiInstance.countriesList({
+                q: this.country,
+                count: 7
+            }, (json) => {
+                let response = JSON.parse(json.data);
+                if (response.status !== 'success') {
+                    console.log(json.error);
+                    return;
+                }
+                this.countryOptionsList = response.data;
+            }, (error) => {
+                console.log('Error');
+            })
         },
-        uploadFile: function(params) {
+        uploadFile: function() {
             this.file = this.$refs.file.files[0];
             let formData = new FormData();
             formData.append('userpic', this.file);
@@ -272,5 +276,7 @@ export default {
 }
 </script>
 <style scoped>
-
+    .gender-form {
+        margin-bottom: 1000px !important;
+    }
 </style>

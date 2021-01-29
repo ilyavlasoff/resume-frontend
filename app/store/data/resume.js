@@ -1,3 +1,6 @@
+import {Workplace} from './workplace';
+import {Education} from './education';
+
 export class Resume
 {
     constructor(data = null) {
@@ -11,8 +14,14 @@ export class Resume
         this.photo = data.photo ? data.photo : '';
         this.experienceLevel = data.experienceLevel ? data.experienceLevel : '';
         this.workplaces = [];
+        data.workplaces.forEach(element => {
+            this.workplaces.push(new Workplace(element));
+        });
         this.educationLevel = data.educationLevel ? data.educationLevel : '';
         this.educations = [];
+        data.educations.forEach(element => {
+            this.educations.push(new Education(element));
+        })
         this.phoneNumber = data.phoneNumber ? data.phoneNumber : '';
         this.email = data.email ? data.email : '';
         this.sphere = data.sphere ? data.sphere : '';
@@ -23,6 +32,5 @@ export class Resume
         this.personalQualities = data.personalQualities ? data.personalQualities : '';
         this.aboutMyself = data.aboutMyself ? data.aboutMyself : '';
         this.status = data.status ? data.status : '';
-        console.log(typeof data)
     }
 }

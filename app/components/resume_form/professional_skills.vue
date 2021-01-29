@@ -16,7 +16,7 @@
                         :experienceType="'job'"
                         :organizationName="workplace.organizationName"
                         :activityName="workplace.postName"
-                        :timeInterval="`${workplace.startDate.getMonth()}.${workplace.startDate.getFullYear()}-${workplace.endDate.getMonth()}.${workplace.endDate.getFullYear()}`"
+                        :timeInterval="`${('0' + (workplace.startDate.getMonth() + 1)).slice(-2)}.${workplace.startDate.getFullYear()}-${( '0' + (workplace.endDate.getMonth() + 1)).slice(-2)}.${workplace.endDate.getFullYear()}`"
                         @delete-item="deleteWorkplace"
                     ></ExperienceItem>
                 </div>
@@ -43,14 +43,7 @@
         data: function() {
             return {
                 displayWorkplaceAddForm: null,
-                displayAddWorkplaceSection: null,
-                experienceLevelOptions: {
-                    'notStated': {value: 'Не указан', requireJobPlaceForm: false},
-                    'noExp': {value: 'Без опыта', requireJobPlaceForm: false},
-                    'startingExp': {value: 'Начинающий (1-3 года)', requireJobPlaceForm: true},
-                    'middleExp': {value: 'Средний (3-5 лет)', requireJobPlaceForm: true},
-                    'experiencedExp': {value: 'Опытный (более 5 лет)', requireJobPlaceForm: true}
-                }
+                displayAddWorkplaceSection: null
             }
         },
         watch: {
@@ -59,6 +52,9 @@
             }
         },
         computed: {
+            experienceLevelOptions: function() {
+                return this.$store.getters.EXPERIENCE_LEVELS;
+            },
             workplaces: {
                 get: function() {
                     return this.$store.getters.RESUME.workplaces;

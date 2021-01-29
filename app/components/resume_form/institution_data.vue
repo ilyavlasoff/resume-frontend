@@ -91,7 +91,6 @@ export default {
             if (! universityId) {
                 return;
             }
-            //console.log(universityId.id);
             VkApiInstance.getFaculties({
                 q: this.facultyQuery,
                 count: 5,

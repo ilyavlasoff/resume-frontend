@@ -5,15 +5,15 @@
             <h1>{{ `${resume.lastName} ${resume.firstName} ${resume.patronymic}`}}</h1>
             <p class="lead">Личная информация</p>
             <p>ФИО:{{`${resume.lastName} ${resume.firstName} ${resume.patronymic}`}}</p>
-            <p>Пол: {{resume.gender}}</p>
+            <p>Пол: {{genderData[resume.gender]}}</p>
             <p>Дата рождения: {{resume.birthday ? `${('0'+resume.birthday.getDay()).slice(-2)}.${('0'+(resume.birthday.getMonth() + 1)).slice(-2)} ${resume.birthday.getFullYear()}` : 'Не указано'}}</p>
             <p>Место проживания: {{`${resume.country}, ${resume.city}`}}</p>
             <hr class="my-4">
             <p class="lead">Образование</p>
-            <p>Уровень образования: {{resume.educationLevel}}</p>
-            <p v-for="education in resume.educations" :key="education.institution + education.faculty">
-                {{`${education.institution}, ${education.faculty}, ${education.speciality} ${education.graduated}`}}
-            </p>
+            <p>Уровень образования: {{educationData[resume.educationLevel].name}}</p>
+            <ol><li v-for="education in resume.educations" :key="education.institution + education.faculty">
+                {{`${education.institution}, ${education.faculty},специальность ${education.speciality}, год окончания ${education.graduated}`}}
+            </li></ol>
             <hr class="my-4">
             <p class="lead">Специализация</p>
             <p>Сфера проф. деятельности: {{resume.sphere}}</p>
@@ -26,10 +26,10 @@
             <p>Email: {{resume.email}}</p>
             <hr class="my-4">
             <p class="lead">Опыт работы</p>
-            <p>Опыт работы: {{resume.experienceLevel}}</p>
-            <p v-for="workplace in resume.workplaces" :key="workplace.organizationName + workplace.postName">
-                {{`Компания ${workplace.organizationName}, ${workplace.postName}, период ${workplace.startDate}-${workplace.endDate}`}}
-            </p>
+            <p>Опыт работы: {{experienceLevelData[resume.experienceLevel].value}}</p>
+            <ol><li v-for="workplace in resume.workplaces" :key="workplace.organizationName + workplace.postName">
+                {{`Компания ${workplace.organizationName}, ${workplace.postName}, период ${('0' + (workplace.startDate.getMonth() + 1)).slice(-2)}.${workplace.startDate.getFullYear()}-${('0' + (workplace.endDate.getMonth() + 1)).slice(-2)}.${workplace.endDate.getFullYear()}`}}
+            </li></ol>
             <hr class="my-4">
             <p class="lead">Личные качества</p>
             <p>Личные качества: {{resume.personalQualities}}</p>
@@ -48,6 +48,15 @@ export default {
         photo: function() {
             return this.resume.photo ? this.resume.photo :  
                 'https://w7.pngwing.com/pngs/219/345/png-transparent-computer-software-computer-icons-team-members-photography-team-logo.png';
+        },
+        genderData: function() {
+            return this.$store.getters.GENDER_LIST;
+        },
+        educationData: function() {
+                return this.$store.getters.EDUCATION_LEVELS;
+        },
+        experienceLevelData: function() {
+                return this.$store.getters.EXPERIENCE_LEVELS;
         }
     }
 }

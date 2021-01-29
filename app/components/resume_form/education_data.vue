@@ -18,7 +18,7 @@
                     :experienceType="'education'"
                     :organizationName="`${institution.institution} ${institution.faculty}`"
                     :activityName="institution.speciality"
-                    :timeInterval="institution.graduated ? institution.graduated: `-`"
+                    :timeInterval="institution.graduated ? institution.graduated.toString() : `-`"
                     @delete-item="deleteEducation"
                 ></experience-item>
             </div>
@@ -49,13 +49,6 @@
         data: function() {
             return {
                 addInstitutionFormVisible: false,
-                educationLevels: {
-                    'notStated': {name: 'Не указано', requireAdditionalFields: false}, 
-                    'mid': {name: 'Среднее', requireAdditionalFields: false}, 
-                    'midSpecial': {name: 'Среднее специальное', requireAdditionalFields: true, allowGraduationYear: true}, 
-                    'incompletedHigher': {name: 'Неоконченное высшее', requireAdditionalFields: true, allowGraduationYear: false}, 
-                    'higher': {name: 'Высшее', requireAdditionalFields: true, allowGraduationYear: true}, 
-                },
                 requireAdditionalFields: false
             }
         },
@@ -68,11 +61,12 @@
             }
         },
         computed: {
+            educationLevels: function() {
+                return this.$store.getters.EDUCATION_LEVELS;
+            },
             educationLevel: {
                 get: function() {
                     let level = this.$store.getters.RESUME.educationLevel;
-
-                    console.log('Get level ' + level);
 
                     if (! level) {
                         return 'notStated';
@@ -81,7 +75,6 @@
                     return level;
                 }, 
                 set: function(value) {
-                    console.log('Value ' + value);
                     this.$store.commit({
                         type: 'SET_EDUCATION_LEVEL',
                         value

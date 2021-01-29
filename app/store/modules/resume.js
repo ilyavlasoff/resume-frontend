@@ -2,21 +2,12 @@ import { Resume } from '../data/resume';
 import { ResumeApiInstance } from '../../api/resume_api';
 
 const state = {
-    resume: {},
-    statusList: {
-        new: "Новый",
-        interview: "Назначено собеседование",
-        accepted: "Принят",
-        rejected: "Отказ"
-    }
+    resume: {}
 }
 
 const getters = {
     RESUME: state => {
         return state.resume;
-    },
-    STATUS_LIST: state => {
-        return state.statusList;
     }
 }
 
