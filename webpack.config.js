@@ -5,22 +5,34 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-    entry: './app/index.js',
+    entry: ['babel-polyfill', './app/index.js'],
     output: {
         path: join(__dirname, 'build'),
         filename: 'index.min.js'
     },
     module: {
         rules: [
-            {test: /\.css$/, use: ['vue-style-loader', 'css-loader']},
             {
+                test: /\.css$/, 
+                use: [{
+                    loader: 'vue-style-loader'
+                }, {
+                    loader: 'style-loader'
+                }, {
+                    loader: 'css-loader'
+                }]
+            }, {
                 test: /\.(js)$/, 
-                use: 'babel-loader', 
-                /*options: {
-                    presets: ['@babel/preset-env']
-                }*/
-            },
-            {test: /\.vue$/, use: 'vue-loader'}
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            }, {
+                test: /\.vue$/, 
+                loader: 'vue-loader'
+            }
         ]
     }, 
     resolve: {

@@ -1,38 +1,34 @@
 <template>
     <div class="container-fluid">
+        <div class="row justify-content-center mt-5">
+            <div class="col-5">
+                <div class="row mb-5">
+                    <PersonalData></PersonalData>
+                </div>
+                <div class="row mb-5">
+                    <ContactData></ContactData>
+                </div>
+                <div class="row mb-5">
+                    <EducationData></EducationData>
+                </div>
+            </div>
+            <div class="col-5 ml-5">
+                <div class="row mb-5">
+                    <ProfessionalSkills></ProfessionalSkills>
+                </div>
+                <div class="row mb-5">
+                    <JobData></JobData>
+                </div>
+                <div class="row mb-5">
+                    <AboutData></AboutData>
+                </div>
+            </div>
+        </div>
         <div class="row justify-content-center">
-            <div class="col-10">
-                <div class="row mt-5">
-                    <div class="col">
-                        <PersonalData></PersonalData>
-                    </div>
-                    <div class="col offset-md-1">
-                        <ProfessionalSkills></ProfessionalSkills>
-                    </div>
-                </div>
-                <div class="row mt-5">
-                    <div class="col">
-                        <EducationData></EducationData>
-                    </div>
-                    <div class="col offset-md-1">
-                        <ContactData></ContactData>
-                    </div>
-                </div>
-                <div class="row mt-5">
-                    <div class="col">
-                        <JobData></JobData>
-                    </div>
-                    <div class="col offset-md-1">
-                        <AboutData></AboutData>
-                    </div>
-                </div>
-                <div class="row mt-5 justify-content-center">
-                    <div class="col-6">
-                        <ResumeTemplate></ResumeTemplate>
-                        <div class="row justify-content-center">
-                            <button type="button" class="btn btn-primary mb-5" @click="saveEditedResume">Сохранить</button>
-                        </div>
-                    </div>
+            <div class="col-6">
+                <ResumeTemplate></ResumeTemplate>
+                <div class="row justify-content-center">
+                    <button type="button" class="btn btn-primary mb-5" @click="saveEditedResume">Сохранить</button>
                 </div>
             </div>
         </div>
@@ -99,5 +95,3 @@
         }
     }
 </script>
-<style>
-</style>

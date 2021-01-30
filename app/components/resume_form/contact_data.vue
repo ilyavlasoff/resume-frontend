@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="w-100">
         <h3>Контактная информация</h3>
         <div class="form-group has-danger">
             <label for="phoneNumber">Номер телефона</label>

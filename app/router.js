@@ -1,10 +1,10 @@
-import { endsWith } from 'lodash';
 import Vue from 'vue';
 import Router from 'vue-router';
 
 import Home from './components/homepage';
 import Resume from './components/resume';
 import ResumeEdit from './components/resume_edit';
+import NotFoundPage from './components/not_found';
 
 Vue.use(Router);
 
@@ -24,9 +24,19 @@ const routes = [
         component: ResumeEdit,
         name: 'edit',
         props: true
+    },
+    { 
+        path: '*', 
+        component: NotFoundPage,
+        name: 'notfound'
     }
 ];
 
-export default new Router({
-    routes
+let router = new Router({
+    routes,
+    mode: 'history',
+    base: '/',
+    fallback: true, 
 });
+
+export default router

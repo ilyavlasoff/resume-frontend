@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="w-100">
         <h3>Специальность</h3>
         <div class="form-group">
             <label for="sphereName">Профессиональная сфера</label>
@@ -14,11 +14,23 @@
             <div class="row">
                 <div class="col">
                     <label for="salaryFrom">от</label>
-                    <input type="text" class="form-control" id="salaryFrom" placeholder="0" v-model="salaryMin">
+                    <input type="text" class="form-control" id="salaryFrom" placeholder="0" v-model="salaryMin"
+                    :class="{
+                        'is-valid': salaryMin && $v.salaryMin.validFormat,
+                        'is-invalid': salaryMin && !$v.salaryMin.validFormat
+                    }"
+                    >
+                    <div v-if="! $v.salaryMin.validFormat" class="invalid-feedback">Должен содержать только цифры</div>
                 </div>
                 <div class="col">
                     <label for="salaryTo">до</label>
-                    <input type="text" class="form-control" id="salaryTo" placeholder="1000000" v-model="salaryMax">
+                    <input type="text" class="form-control" id="salaryTo" placeholder="1000000" v-model="salaryMax"
+                    :class="{
+                        'is-valid': salaryMax && $v.salaryMax.validFormat,
+                        'is-invalid': salaryMax && !$v.salaryMax.validFormat 
+                    }"
+                    >
+                    <div v-if="! $v.salaryMax.validFormat" class="invalid-feedback">Должен содержать только цифры</div>
                 </div>
             </div>
         </div>
@@ -86,6 +98,14 @@ export default {
                     value
                 })
             }
+        }
+    },
+    validations: {
+        salaryMax: {
+            validFormat: val => /^\d+$/.test(val)
+        },
+        salaryMin: {
+            validFormat: val => /^\d+$/.test(val)
         }
     }
 }

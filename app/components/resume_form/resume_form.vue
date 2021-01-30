@@ -3,7 +3,7 @@
         <keep-alive>
             <component :is="componentPart"></component>
         </keep-alive>
-        <div style="display: flex; flex-direction: row; justify-content: flex-end;">
+        <div class="action-button-container mt-4">
             <button type="button" class="btn btn-secondary" @click="goBack" v-if="currentComponentPartIndex !== 0">Назад</button>
             <button type="button" class="btn btn-primary" 
                 @click="goNextStep">{{ currentComponentPartIndex === componentNames.length - 1? "Завершить": "Далее"}}</button>
@@ -62,3 +62,10 @@
         }
     }
 </script>
+<style scoped>
+    .action-button-container {
+        display: flex; 
+        flex-direction: row; 
+        justify-content: flex-end;
+    }
+</style>

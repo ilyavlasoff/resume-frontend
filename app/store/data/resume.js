@@ -3,7 +3,7 @@ import {Education} from './education';
 
 export class Resume
 {
-    constructor(data = null) {
+    constructor(data) {
         this.firstName = data.firstName ? data.firstName : '';
         this.lastName = data.lastName ? data.lastName : '';
         this.patronymic = data.patronymic ? data.patronymic : '';
@@ -14,14 +14,18 @@ export class Resume
         this.photo = data.photo ? data.photo : '';
         this.experienceLevel = data.experienceLevel ? data.experienceLevel : '';
         this.workplaces = [];
-        data.workplaces.forEach(element => {
-            this.workplaces.push(new Workplace(element));
-        });
+        if (data.workplaces) {
+            data.workplaces.forEach(element => {
+                this.workplaces.push(new Workplace(element));
+            });
+        }
         this.educationLevel = data.educationLevel ? data.educationLevel : '';
         this.educations = [];
-        data.educations.forEach(element => {
-            this.educations.push(new Education(element));
-        })
+        if (data.educations) {
+            data.educations.forEach(element => {
+                this.educations.push(new Education(element));
+            })
+        }
         this.phoneNumber = data.phoneNumber ? data.phoneNumber : '';
         this.email = data.email ? data.email : '';
         this.sphere = data.sphere ? data.sphere : '';

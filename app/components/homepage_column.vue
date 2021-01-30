@@ -1,14 +1,14 @@
 <template>
-    <div class="col px-3" style="border-right:1px solid #f7f7f9">
-        <div class="row mx-2" style="height: 80px;">
+    <div class="col px-3 column-container">
+        <div class="row mx-2 column-title">
             <h3 class="justify-content-center">{{columnTitle}} ({{ currentList.length }})</h3>
         </div>
-        <div class="list-group overflow-auto" style="max-height: 800px;">
+        <div class="list-group overflow-auto column">
             <draggable :list="currentList" group="gr">
                 <a v-for="item in currentList" :key="item.id" class="list-group-item list-group-item-action flex-column align-items-start" 
                     @click="openEditPage(item.id)">
                     <div class="d-flex w-100 justify-content-between">
-                        <img :src="item.photo" style="width: 75px; height: 75px;" class="rounded-circle">
+                        <img :src="item.photo" class="rounded-circle ph">
                         <div class="col">
                             <h5>{{`${item.firstName} ${item.lastName} ${item.patronymic}`}}</h5>
                             <p>Возраст: {{parseInt((Date.now() - new Date(item.birthday)) / (1000*60*60*24*365))}}</p>
@@ -79,3 +79,19 @@
         }
     }
 </script>
+<style scoped>
+    .column-container {
+        border-right: 1px solid #f7f7f9;
+        height: 700px;
+    }
+    .column {
+        max-height: 800px;
+    }
+    .ph {
+        width: 75px; 
+        height: 75px;
+    }
+    .column-title {
+        height: 80px;
+    }
+</style>

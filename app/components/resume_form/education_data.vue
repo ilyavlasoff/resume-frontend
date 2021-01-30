@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="w-100">
         <h3>Образование</h3>
         <select class="form-select custom-select" v-model="educationLevel">
             <option v-for="(educationLevel, key) in educationLevels" 
@@ -22,7 +22,7 @@
                     @delete-item="deleteEducation"
                 ></experience-item>
             </div>
-            <button class="btn btn-primary" type="button" 
+            <button class="btn btn-primary mt-3" type="button" 
                 @click="addInstitutionFormVisible = true;"
                 v-if="!addInstitutionFormVisible"
             >

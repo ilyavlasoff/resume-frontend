@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="w-100">
         <h3>Личные качества</h3>
         <div class="form-group">
             <label for="personalQualities">Личные качества</label>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="w-100">
         <h3>Персональная информация</h3>
         <div>
             <div class="form-group has-danger">
@@ -64,14 +64,14 @@
                 </datalist>
             </div>
             <div class="form-group custom-file" v-if="!directLinkFormForPhoto">
-                <label for="userPhoto" class="custom-file-label">Ваше фото</label>
+                <label for="userPhoto" class="custom-file-label">{{ photoName }}</label>
                 <input type="file" ref="file" class="form-control custom-file-input" id="userPhoto" @change="uploadFile()">
-                <small id="patronymicTip" class="form-text text-muted">Вы также можете добавить фото по <a style="text-decoration: underline;" @click="directLinkFormForPhoto = true;">прямой ссылке</a></small>
+                <small id="patronymicTip" class="form-text text-muted">Вы также можете добавить фото по <a class="ph-option-text" @click="directLinkFormForPhoto = true;">прямой ссылке</a></small>
             </div>
             <div class="form-group" v-if="directLinkFormForPhoto">
                 <label for="userPhotoDirectLink">Ваше фото</label>
                 <input type="url" class="form-control" id="userPhotoDirectLink" placeholder="Вставьте ссылку" v-model="photo">
-                <small id="patronymicTip" class="form-text text-muted">Вы также можете <a style="text-decoration: underline;" @click="directLinkFormForPhoto = false;">загрузить фото с компьютера</a></small>
+                <small id="patronymicTip" class="form-text text-muted">Вы также можете <a class="ph-option-text" @click="directLinkFormForPhoto = false;">загрузить фото с компьютера</a></small>
             </div>
         </div>
     </div>
@@ -90,7 +90,8 @@ export default {
             directLinkFormForPhoto: false,
             cityOptionsList: [],
             countryOptionsList: [],
-            photoFile: null
+            photoFile: null,
+            photoName: 'Ваше фото'
         }
     }, 
     computed: {
@@ -253,6 +254,7 @@ export default {
                 const data = JSON.parse(response.data);
                 if (data.status === 'success') {
                     this.photo = `${config.uploadedFileBasePath}${data.path}`;
+                    photoName = 'Загружено новое фото';
                 } else {
                     console.log('Error');
                 }
@@ -277,6 +279,9 @@ export default {
 </script>
 <style scoped>
     .gender-form {
-        margin-bottom: 1000px !important;
+        margin-bottom: 20px;
+    }
+    .ph-option-text {
+        text-decoration: underline;
     }
 </style>

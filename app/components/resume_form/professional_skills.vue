@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="w-100">
         <h3>Опыт работы</h3>
         <div>
             <label>Наличие опыта работы</label>
@@ -20,7 +20,7 @@
                         @delete-item="deleteWorkplace"
                     ></ExperienceItem>
                 </div>
-                <button type="button" class="btn btn-primary" @click="displayWorkplaceAddForm = true;" v-if="! displayWorkplaceAddForm">Добавить место работы</button>
+                <button type="button" class="btn btn-primary mt-3" @click="displayWorkplaceAddForm = true;" v-if="! displayWorkplaceAddForm">Добавить место работы</button>
                 <PreviuosJobs 
                     v-else
                     @cancel-add="displayWorkplaceAddForm = false"

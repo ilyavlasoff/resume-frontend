@@ -58,6 +58,7 @@
             }
         },
         mounted: function() {
+            console.log('Mounted');
             this.$store.commit({
                 type: 'SET_RESUME',
                 value: {}
@@ -65,5 +66,3 @@
         }
     }
 </script>
-<style>
-</style>
