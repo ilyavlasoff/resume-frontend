@@ -12,34 +12,18 @@
                 </div>
             </div>
         </div>
-        <Modal
-            :title="modalTitle"
-            :content="modalContent"
-            :mainButtonText="modalMainButtonText"
-            :secondaryButtonText="modalSecondaryButtonText"
-        ></Modal>
     </div>
 </template>
 <script>
     import ResumeForm from './resume_form/resume_form';
     import ResumeTemplate from './resume_template/resume_template';
     import { ResumeApiInstance } from '../api/resume_api'
-    import Modal from './modal';
 
     export default {
         name: 'Resume',
         components: {
             ResumeForm, 
-            ResumeTemplate,
-            Modal
-        },
-        data: function() { 
-            return {
-                modalTitle: null, 
-                modalContent: null,
-                modalMainButtonText: null,
-                modalSecondaryButtonText: null
-            }
+            ResumeTemplate
         },
         methods: {
             saveResume: function() {
@@ -58,7 +42,6 @@
             }
         },
         mounted: function() {
-            console.log('Mounted');
             this.$store.commit({
                 type: 'SET_RESUME',
                 value: {}

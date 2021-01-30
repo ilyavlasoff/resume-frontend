@@ -32,12 +32,6 @@
                 </div>
             </div>
         </div>
-        <Modal
-            :title="modalTitle"
-            :content="modalContent"
-            :mainButtonText="modalMainButtonText"
-            :secondaryButtonText="modalSecondaryButtonText"
-        ></Modal>
     </div>
 </template>
 <script>
@@ -49,7 +43,6 @@
     import AboutData from '../components/resume_form/about_data';
     import ResumeTemplate from '../components/resume_template/resume_template';
     import { ResumeApiInstance } from '../api/resume_api'
-    import Modal from './modal';
 
     export default {
         name: 'Resume',
@@ -61,17 +54,8 @@
             JobData,
             AboutData,
             ResumeTemplate,
-            Modal
         },
         props: ['id'],
-        data: function() { 
-            return {
-                modalTitle: null, 
-                modalContent: null,
-                modalMainButtonText: null,
-                modalSecondaryButtonText: null
-            }
-        },
         methods: {
             saveEditedResume: function() {
                 ResumeApiInstance.editResume(this.id, JSON.stringify(this.$store.getters.RESUME), 
