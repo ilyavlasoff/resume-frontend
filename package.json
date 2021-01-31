@@ -5,8 +5,10 @@
   "main": "/app/index.js",
   "scripts": {
     "start": "npm run dev",
+    "clean": "rimraf dist",
     "dev": "webpack serve --mode development --port 8081",
-    "prod": "webpack serve --mode production"
+    "prod": "webpack serve --mode production",
+    "build": "npm run clean && webpack --mode production"
   },
   "author": "",
   "license": "ISC",

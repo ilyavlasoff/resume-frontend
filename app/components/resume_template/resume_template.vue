@@ -1,6 +1,6 @@
 <template>
     <div class="row d-flex justify-content-center">
-        <div class="jumbotron">
+        <div class="jumbotron w-100">
             <img :src="photo" class="rounded-circle ph">
             <h1>{{ `${resume.lastName} ${resume.firstName} ${resume.patronymic}`}}</h1>
             <p class="lead">Личная информация</p>
