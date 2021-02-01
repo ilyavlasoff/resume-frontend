@@ -20,7 +20,9 @@
                 get: function() {
                     const currentStatus = this.$store.getters.RESUME.status;
                     if (! currentStatus) {
-                        return Object.keys(this.statusList)[0];
+                        const defaultStatus = Object.keys(this.statusList)[0];
+                        this.selectedStatus = defaultStatus;
+                        return defaultStatus;
                     }
                     return currentStatus;
                 }
