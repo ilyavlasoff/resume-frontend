@@ -46,6 +46,9 @@
                 type: 'SET_RESUME',
                 value: {}
             })
+        },
+        beforeDestroy: function() {
+            this.$store.commit('SET_EMPTY_RESUME');
         }
     }
 </script>

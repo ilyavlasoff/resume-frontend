@@ -76,6 +76,9 @@
             this.$store.dispatch('LOAD_RESUME', {
                 id: this.id
             });
+        },
+        beforeDestroy: function() {
+            this.$store.commit('SET_EMPTY_RESUME');
         }
     }
 </script>

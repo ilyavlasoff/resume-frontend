@@ -15,6 +15,9 @@ const mutations = {
     SET_RESUME: (state, payload) => {
         state.resume = new Resume(payload.value);
     },
+    SET_EMPTY_RESUME: (state, payload) => {
+        state.resume = {};
+    },
     SET_FIRST_NAME: (state, payload) => {
         state.resume.firstName = payload.value;
     },
@@ -70,7 +73,6 @@ const mutations = {
         state.resume.educations = payload.value;
     },
     REMOVE_EDUCATION: (state, payload) => {
-        console.log('remove');
         let index = state.resume.educations.findIndex(el => el.id === payload.value);
         state.resume.educations.splice(index, 1);
     },
